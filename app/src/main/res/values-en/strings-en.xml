@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TDAppAndroid</string>
+    <string name="action_settings">Settings</string>
+    <string name="Bienvenue">Welcome</string>
+    <string name="map">To the map</string>
+    <string name="bdd">To the list</string>
+    <string name="liste">List</string>
+    <string name="nothing">Nothing to display !</string>
+    <string name="bck">Back</string>
+    <string name="desc">Here the application which list all train station of France. To si all train station, click on the button "To the list".</string>
+    <string name="desc2">If you want to know your location, click on the button "To the map".</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="srch">Find train station</string>
+    <string name="sure">Are you sure ?</string>
+    <string name="oui">Yes</string>
+    <string name="no">No</string>
+    <string name="appname">Station Finder</string>
+    <string name="Langue">Languages</string>
+    <string name="distance">Distance</string>
+    <string name="change">Switch station</string>
+    <string name="select">Select a station</string>
+    <string name="langue1">You clicked on : </string>
+    <string name="sorry">This function is not available yet... Sorry !</string>
+    <string name="dlok">Download done !</string>
+    <string name="dl">Download in progress !</string>
+    <string name="idgare">Identifier of the station</string>
+    <string name="log">Display log</string>
+    <string name="debug">Debug</string>
+    <string name="info">Info</string>
+    <string name="warn">Warning</string>
+    <string name="error">Error</string>
+    <string name="all">All</string>
+    <string name="filter_log">Choose a filter</string>
+    <string name="down">Go down</string>
+    <string name="up">Go up</string>
+    <string name="gps_network_not_enabled">GPS not enabled</string>
+    <string name="open_location_settings">Open Location Settings</string>
+    <string name="Cancel">Cancel</string>
+    </resources>

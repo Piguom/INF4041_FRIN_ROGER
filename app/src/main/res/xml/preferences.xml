@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:title="Distance"
+        android:summary="Distance in km around you to find a train station"
+        android:key="dist"
+        android:defaultValue="20"
+        android:entries="@array/distance"
+        android:entryValues="@array/distance_key" />
+
+    <ListPreference
+        android:title="Limit"
+        android:summary="Number limit of train station to display in the list"
+        android:key="lim"
+        android:defaultValue="10"
+        android:entries="@array/limit"
+        android:entryValues="@array/limit_key" />
+</PreferenceScreen>
