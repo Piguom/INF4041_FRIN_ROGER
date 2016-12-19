@@ -39,7 +39,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="14sp"
                 android:textColor="#333"
-                android:text="Retard : "/>
+                android:text="@string/ret"/>
 
 
             <TextView
@@ -75,7 +75,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="14sp"
                 android:textColor="#333"
-                android:text="Heure réelle d'arrivée : "/>
+                android:text="@string/timereel"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="14sp"
                 android:textColor="#333"
-                android:text="Heure théorique d'arrivée : "/>
+                android:text="@string/timetheo"/>
 
             <TextView
                 android:layout_width="wrap_content"

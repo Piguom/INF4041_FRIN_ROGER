@@ -153,7 +153,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     }
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
-                builder.setMessage("Souhaitez-vous afficher les prochains départs de la gare ?")
+                builder.setMessage(R.string.depart)
                         .setPositiveButton(R.string.oui, dialogClickListener)
                         .setNegativeButton(R.string.no, dialogClickListener).show();
             }

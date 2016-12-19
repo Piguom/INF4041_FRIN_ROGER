@@ -37,7 +37,7 @@
         <activity
            android:name=".Listing"
            android:label="@string/liste"
-           android:theme="@style/AppTheme.NoActionBar">
+           android:theme="@style/Theme.AppCompat">
         </activity>
         <activity
             android:name=".Setting"
@@ -51,8 +51,8 @@
 
         <activity
             android:name=".Dpartures"
-            android:label="@string/action_settings"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/dep"
+            android:theme="@style/Theme.AppCompat">
         </activity>
 
         <service

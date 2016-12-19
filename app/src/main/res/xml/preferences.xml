@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <ListPreference
-        android:title="Distance"
-        android:summary="Distance in km around you to find a train station"
-        android:key="dist"
-        android:defaultValue="10"
-        android:entries="@array/distance"
-        android:entryValues="@array/distance_key" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Preference for train list">
 
-    <ListPreference
-        android:title="Limit"
-        android:summary="Number limit of train station to display in the list"
-        android:key="lim"
-        android:defaultValue="5"
-        android:entries="@array/limit"
-        android:entryValues="@array/limit_key" />
+    <PreferenceCategory
+        android:title="@string/around">
 
-    <Preference
-        android:key="submit"
-        android:title="Submit"></Preference>
+        <ListPreference
+            android:title="Distance"
+            android:summary="@string/dist"
+            android:key="dist"
+            android:defaultValue="10"
+            android:entries="@array/distance"
+            android:entryValues="@array/distance_key" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/Inlist">
+
+        <ListPreference
+            android:title="@string/limite"
+            android:summary="@string/lim"
+            android:key="lim"
+            android:defaultValue="5"
+            android:entries="@array/limit"
+            android:entryValues="@array/limit_key" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory>
+
+        <Preference
+            android:key="submit"
+            android:title="@string/subm"
+            android:summary="@string/submit"></Preference>
+
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

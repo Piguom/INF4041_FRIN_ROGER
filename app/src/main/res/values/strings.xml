@@ -4,7 +4,7 @@
     <string name="Bienvenue">Bienvenue</string>
     <string name="map">Vers la carte</string>
     <string name="bdd">Vers la liste</string>
-    <string name="liste">Liste</string>
+    <string name="liste">Liste des trains</string>
     <string name="nothing">Rien à afficher !</string>
     <string name="bck">Retour</string>
     <string name="desc">Voici l\'application qui liste toutes les gares de France. Pour voir les gares, cliquez sur le bouton "Vers la liste".</string>
@@ -38,5 +38,21 @@
     <string name="gps_network_not_enabled">GPS not enabled</string>
     <string name="open_location_settings">Ouvrir paramètres GPS</string>
     <string name="Cancel">Cancle</string>
-    <string name="btnpref">Sumbit</string>
+    <string name="dist">Distance in km around you to find a train station</string>
+    <string name="limite">Limite</string>
+    <string name="lim">Number limit of train station to display in the list</string>
+    <string name="subm">Soumettre</string>
+    <string name="submit">Click to automaticcaly redirect on the list view</string>
+    <string name="around">Autour de vous</string>
+    <string name="Inlist">Dans la liste</string>
+    <string name="depart">Souhaitez-vous afficher les prochains départs de la gare ?</string>
+    <string name="ret">Retard : </string>
+    <string name="timereel">Heure réelle de départ : </string>
+    <string name="timetheo">Heure théorique de départ : </string>
+    <string name="dep">Départ</string>
+    <string name="dldone">[Trains] Téléchargement terminé !</string>
+    <string name="missdone">[Mission] Téléchargement terminé !</string>
+    <string name="refrechlist">Cliquez pour rafraichir la liste</string>
+    <string name="bind">Voulez-vous afficher la position de cette gare sur la carte ?</string>
+
 </resources>

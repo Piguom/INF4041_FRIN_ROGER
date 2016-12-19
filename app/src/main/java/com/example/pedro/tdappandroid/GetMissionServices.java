@@ -89,8 +89,8 @@ public class GetMissionServices extends IntentService {
             conn.connect();
             if(HttpURLConnection.HTTP_OK == conn.getResponseCode()){
                 copyInputStreamToFile(conn.getInputStream(),new File(getCacheDir(),"missions.json"));
-                createNotification("Mission done !", "Click to refresh liste");
                 Log.i(GET_MISSION_SERVICES,"Json downloaded !");
+                createNotification(getString(R.string.missdone),getString(R.string.refrechlist));
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
@@ -115,7 +115,8 @@ public class GetMissionServices extends IntentService {
     }
 
     private final void createNotification(String titre, String text){
-        Intent intent = new Intent(getApplicationContext(), Dpartures.class);
+        //Do nothing when click on it just dismiss it
+        Intent intent = new Intent();
         PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), intent.FLAG_ACTIVITY_CLEAR_TOP, intent, 0);
 
         Notification myNotification  = new Notification.Builder(getApplicationContext())

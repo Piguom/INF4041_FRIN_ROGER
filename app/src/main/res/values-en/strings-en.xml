@@ -5,7 +5,7 @@
     <string name="Bienvenue">Welcome</string>
     <string name="map">To the map</string>
     <string name="bdd">To the list</string>
-    <string name="liste">List</string>
+    <string name="liste">Train station list</string>
     <string name="nothing">Nothing to display !</string>
     <string name="bck">Back</string>
     <string name="desc">Here the application which list all train station of France. To si all train station, click on the button "To the list".</string>
@@ -38,4 +38,20 @@
     <string name="gps_network_not_enabled">GPS not enabled</string>
     <string name="open_location_settings">Open Location Settings</string>
     <string name="Cancel">Cancel</string>
+    <string name="dist">Distance in km around you to find a train station</string>
+    <string name="limite">Limit</string>
+    <string name="lim">Number limit of train station to display in the list</string>
+    <string name="subm">Submit</string>
+    <string name="submit">Click to automaticcaly redirect on the list view</string>
+    <string name="around">Around you</string>
+    <string name="Inlist">In the list</string>
+    <string name="depart">Do you want to display next departure from this train station ?</string>
+    <string name="ret">Delay : </string>
+    <string name="timereel">Real time departure : </string>
+    <string name="timetheo">Theoretical time departure : </string>
+    <string name="dep">Departure</string>
+    <string name="dldone">[Train] Download Done !</string>
+    <string name="missdone">[Mission] Download Done !</string>
+    <string name="refrechlist">Click to refresh the list</string>
+    <string name="bind">Do you want to display the train station location on the map ?</string>
     </resources>

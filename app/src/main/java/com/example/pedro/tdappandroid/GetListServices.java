@@ -107,7 +107,7 @@ public class GetListServices extends IntentService {
                 copyInputStreamToFile(conn.getInputStream(),new File(getCacheDir(),"stations.json"));
                 Log.i(GET_LIST_SERVICES,"Json downloaded !");
                 //Refreshing list issue, so I added a refresh callback with this notification
-                createNotification("Download done !", "Click to refresh liste");
+                createNotification(getString(R.string.dldone),getString(R.string.refrechlist));
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
@@ -132,7 +132,8 @@ public class GetListServices extends IntentService {
     }
 
     private final void createNotification(String titre, String text){
-        Intent intent = new Intent(getApplicationContext(), Listing.class);
+        //Do nothing when click on it just dismiss it
+        Intent intent = new Intent();
         PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 
         Notification myNotification  = new Notification.Builder(getApplicationContext())

@@ -81,8 +81,6 @@ public class Listing extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         IntentFilter intentFilter = new IntentFilter(STATIONS_UPDATE);
         LocalBroadcastManager.getInstance(Listing.this).registerReceiver(new Listing.StationsUpdate(),intentFilter);
@@ -200,7 +198,7 @@ public class Listing extends AppCompatActivity {
                     };
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(Listing.this);
-                    builder.setMessage("Voulez-vous afficher la position de cette gare sur la carte ?\nStation : " + stations.getJSONObject(getPosition()).getString("name_gare") + "\nLatitude : " +
+                    builder.setMessage(getString(R.string.bind)+"\n" + stations.getJSONObject(getPosition()).getString("name_gare") + "\nLatitude : " +
                             stations.getJSONObject(getPosition()).getString("lat") + "\nLongitude : " + stations.getJSONObject(getPosition()).getString("lng"))
                             .setPositiveButton(R.string.oui, dialogClickListener)
                             .setNegativeButton(R.string.no, dialogClickListener).show();
@@ -222,6 +220,18 @@ public class Listing extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(),Setting.class);
+            startActivity(i);
+            return true;
+        }
+
+        if(id == R.id.action_replay){
+            Intent i = new Intent(this,Listing.class);
+            finish();
+            startActivity(i);
+        }
         return super.onOptionsItemSelected(item);
     }
 }

@@ -15,6 +15,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -46,8 +48,6 @@ public class Dpartures extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dpartures);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Intent get = getIntent();
         name = get.getStringExtra("name_gare");
@@ -139,39 +139,27 @@ public class Dpartures extends AppCompatActivity{
 
             @Override
             public void onClick(View v) {
-              /*  try {
-                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    try {
-                                        Intent i = new Intent(getApplicationContext(), MapActivity.class);
-                                        i.putExtra("name_gare", missions.getJSONObject(getPosition()).getString("name_gare"));
-                                        startActivity(i);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    break;
-
-                                case DialogInterface.BUTTON_NEGATIVE:
-
-                                    break;
-                            }
-                        }
-                    };
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Dpartures.this);
-                    builder.setMessage("Voulez-vous afficher la position de cette gare sur la carte ?\nStation : " + stations.getJSONObject(getPosition()).getString("name_gare") + "\nLatitude : " +
-                            stations.getJSONObject(getPosition()).getString("lat") + "\nLongitude : " + stations.getJSONObject(getPosition()).getString("lng"))
-                            .setPositiveButton(R.string.oui, dialogClickListener)
-                            .setNegativeButton(R.string.no, dialogClickListener).show();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }*/
+              //Nothing happened for now...
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_depart, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.action_replay){
+            Intent i = new Intent(this,Dpartures.class);
+            finish();
+            startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
