@@ -19,6 +19,7 @@
     <string name="appname">Chercheur de gare</string>
     <string name="Langue">Langues</string>
     <string name="distance">Distance</string>
+    <string name="distance_key">distance_key</string>
     <string name="change">Changer de station</string>
     <string name="select">Sélectionner une station</string>
     <string name="langue1">Vous avez cliquer sur : </string>
@@ -40,6 +41,7 @@
     <string name="Cancel">Annulé</string>
     <string name="dist">Distance en km où chercher des gares autour de vous</string>
     <string name="limite">Limite</string>
+    <string name="limit">Limite</string>
     <string name="lim">Nombre limite de gare à afficher dans la liste</string>
     <string name="subm">Soumettre</string>
     <string name="submit">Cliquez pour afficher la liste en fonction des préférences sélectionnées</string>

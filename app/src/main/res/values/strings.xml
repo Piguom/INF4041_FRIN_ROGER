@@ -15,10 +15,10 @@
     <string name="sure">Êtes-vous sûr ?</string>
     <string name="oui">Oui</string>
     <string name="no">Non</string>
-    <string name="appuyer">Vous devez cliquer sur une des cartes pour pouvoir être redirigé sur la carte ! \n Compris ?</string>
     <string name="appname">Station Finder</string>
     <string name="Langue">Langues</string>
     <string name="distance">Distance</string>
+    <string name="distance_key">distance_key</string>
     <string name="change">Changer de station</string>
     <string name="select">Sélectionner une station</string>
     <string name="langue1">Vous avez cliquer sur : </string>
@@ -40,6 +40,7 @@
     <string name="Cancel">Cancle</string>
     <string name="dist">Distance in km around you to find a train station</string>
     <string name="limite">Limite</string>
+    <string name="limit">Limite</string>
     <string name="lim">Number limit of train station to display in the list</string>
     <string name="subm">Soumettre</string>
     <string name="submit">Click to automaticcaly redirect on the list view</string>

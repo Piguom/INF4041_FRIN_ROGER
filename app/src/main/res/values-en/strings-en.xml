@@ -19,6 +19,7 @@
     <string name="appname">Station Finder</string>
     <string name="Langue">Languages</string>
     <string name="distance">Distance</string>
+    <string name="distance_key">distance_key</string>
     <string name="change">Switch station</string>
     <string name="select">Select a station</string>
     <string name="langue1">You clicked on : </string>
@@ -40,6 +41,7 @@
     <string name="Cancel">Cancel</string>
     <string name="dist">Distance in km around you to find a train station</string>
     <string name="limite">Limit</string>
+    <string name="limit">Limit</string>
     <string name="lim">Number limit of train station to display in the list</string>
     <string name="subm">Submit</string>
     <string name="submit">Click to automaticcaly redirect on the list view</string>

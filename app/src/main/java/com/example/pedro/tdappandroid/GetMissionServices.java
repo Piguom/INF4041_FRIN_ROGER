@@ -1,21 +1,11 @@
 package com.example.pedro.tdappandroid;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Looper;
-import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,9 +18,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static com.example.pedro.tdappandroid.Dpartures.MISSIONS_UPDATE;
-import static com.example.pedro.tdappandroid.Listing.STATIONS_UPDATE;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
