@@ -61,7 +61,7 @@ public class GetMissionServices extends IntentService {
         Intent intent = new Intent(context, GetMissionServices.class);
         intent.setAction(ACTION_GET_ALL_MISSION);
         context.startService(intent);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(MISSIONS_UPDATE));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Dpartures.MISSIONS_UPDATE));
     }
 
     @Override

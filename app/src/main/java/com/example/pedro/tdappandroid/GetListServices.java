@@ -63,7 +63,7 @@ public class GetListServices extends IntentService {
         Intent intent = new Intent(context, GetListServices.class);
         intent.setAction(ACTION_GET_ALL_STATION);
         context.startService(intent);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(STATIONS_UPDATE));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Listing.STATIONS_UPDATE));
     }
 
     @Override
@@ -133,7 +133,7 @@ public class GetListServices extends IntentService {
 
     private final void createNotification(String titre, String text){
         Intent intent = new Intent(getApplicationContext(), Listing.class);
-        PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), intent.FLAG_ACTIVITY_CLEAR_TOP, intent, 0);
+        PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 
         Notification myNotification  = new Notification.Builder(getApplicationContext())
                 .setContentTitle(titre)
