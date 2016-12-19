@@ -48,6 +48,16 @@
         <service
             android:name=".GetListServices"
             android:exported="false"></service>
+
+        <activity
+            android:name=".Dpartures"
+            android:label="@string/action_settings"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <service
+            android:name=".GetMissionServices"
+            android:exported="false"></service>
     </application>
 
 </manifest>

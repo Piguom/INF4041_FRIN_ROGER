@@ -73,7 +73,9 @@ import static android.R.id.progress;
 
 public class Listing extends AppCompatActivity {
 
-    RecyclerView rv = null;
+    public static final String STATIONS_UPDATE = "com.example.pedro.tdappandroid.action.STATIONS_UPDATE";
+
+    RecyclerView rv ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,34 +93,12 @@ public class Listing extends AppCompatActivity {
         rv.setAdapter(new StationsAdapter());
     }
 
-    public static final String STATIONS_UPDATE = "com.example.pedro.tdappandroid.action.STATIONS_UPDATE";
     public class StationsUpdate extends BroadcastReceiver {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.i("GetListServices", " "+getIntent().getAction());
             ((StationsAdapter) rv.getAdapter()).setStations(getStationsFromFile());
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(getApplicationContext(),Setting.class);
-            startActivity(i);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public JSONArray getStationsFromFile() {
@@ -158,12 +138,6 @@ public class Listing extends AppCompatActivity {
             }
         }
 
-        public JSONArray removeItem(int position) {
-            stations.remove(position);
-            notifyItemRemoved(position);
-            return stations;
-        }
-
         @Override
         public int getItemCount() {
             return stations.length();
@@ -193,9 +167,6 @@ public class Listing extends AppCompatActivity {
                     name = (TextView) itemView.findViewById(R.id.rv_bier_element_name);
                     lng = (TextView) itemView.findViewById(R.id.rv_bier_element_lat);
                     lat = (TextView) itemView.findViewById(R.id.rv_bier_element_lng);
-                }
-                if (lng.toString() == "0") {
-                    removeItem(getLayoutPosition());
                 }
             }
 

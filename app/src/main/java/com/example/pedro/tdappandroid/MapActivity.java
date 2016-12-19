@@ -139,9 +139,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 try {
-                                    Intent i = new Intent(getApplicationContext(), MapActivity.class);
-                                    i.putExtra(name_tx, "name_gare");
-                                    i.putExtra(id_gare_tx, "id");
+                                    Intent i = new Intent(getApplicationContext(), Dpartures.class);
+                                    i.putExtra("name_gare",name_tx);
+                                    i.putExtra("id",id_gare_tx);
                                     startActivity(i);
                                 } catch (Exception e) {
                                     e.printStackTrace();

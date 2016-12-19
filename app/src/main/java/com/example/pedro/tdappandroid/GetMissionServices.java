@@ -1,8 +1,5 @@
 package com.example.pedro.tdappandroid;
 
-/**
- * Created by Pedro on 07/11/2016.
- */
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.IntentService;
@@ -32,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static com.example.pedro.tdappandroid.Dpartures.MISSIONS_UPDATE;
 import static com.example.pedro.tdappandroid.Listing.STATIONS_UPDATE;
 
 /**
@@ -41,13 +39,13 @@ import static com.example.pedro.tdappandroid.Listing.STATIONS_UPDATE;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class GetListServices extends IntentService {
+public class GetMissionServices extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_GET_ALL_STATION = "com.example.pedro.tdappandroid.action.GET_ALL_STATION";
-    private static final String GET_LIST_SERVICES = "GetListServices";
+    private static final String ACTION_GET_ALL_MISSION = "com.example.pedro.tdappandroid.action.GET_ALL_MISSION";
+    private static final String GET_MISSION_SERVICES = "GetMissionServices";
 
-    public GetListServices() {
+    public GetMissionServices() {
         super("GetListServices");
     }
 
@@ -60,17 +58,17 @@ public class GetListServices extends IntentService {
     // TODO: Customize helper method
     public static void startActionStations(Context context) {
         Toast.makeText(context, R.string.dl, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(context, GetListServices.class);
-        intent.setAction(ACTION_GET_ALL_STATION);
+        Intent intent = new Intent(context, GetMissionServices.class);
+        intent.setAction(ACTION_GET_ALL_MISSION);
         context.startService(intent);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(STATIONS_UPDATE));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(MISSIONS_UPDATE));
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             final String action = intent.getAction();
-            if (ACTION_GET_ALL_STATION.equals(action)) {
+            if (ACTION_GET_ALL_MISSION.equals(action)) {
                 handleActionStations();
             }
         }
@@ -83,31 +81,16 @@ public class GetListServices extends IntentService {
     private void handleActionStations() {
         // TODO: Handle action Foo
         Log.i("GetListServices","Thread service name: " + Thread.currentThread().getName());
-        URL url = null;
-
-        double latitude = 0.0;
-        double longitude = 0.0;
-        GPSTracker gps = new GPSTracker(this);
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-
-
+        URL url;
         try{
-            // Center in Ile de France to default with a limit of 5 train station to default
-             url = new URL("http://www.raildar.fr/json/gares?lat=48.8361957&lng=2.3805608&dist=50&limit="+pref.getString("lim","5"));
-             if(gps.canGetLocation()){
-                latitude = gps.getLatitude();
-                longitude = gps.getLongitude();
-                url = new URL("http://www.raildar.fr/json/gares?lat="+latitude+"&lng="+longitude+"&dist="+pref.getString("dist","10")+"&limit="+pref.getString("lim","5"));
-                Log.i(GET_LIST_SERVICES,"User location with preferences");
-            }
+            url = new URL("http://www.raildar.fr/json/next_missions?id_gare="+Dpartures.id);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
             if(HttpURLConnection.HTTP_OK == conn.getResponseCode()){
-                copyInputStreamToFile(conn.getInputStream(),new File(getCacheDir(),"stations.json"));
-                Log.i(GET_LIST_SERVICES,"Json downloaded !");
-                //Refreshing list issue, so I added a refresh callback with this notification
-                createNotification("Download done !", "Click to refresh liste");
+                copyInputStreamToFile(conn.getInputStream(),new File(getCacheDir(),"missions.json"));
+                createNotification("Mission done !", "Click to refresh liste");
+                Log.i(GET_MISSION_SERVICES,"Json downloaded !");
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
@@ -132,7 +115,7 @@ public class GetListServices extends IntentService {
     }
 
     private final void createNotification(String titre, String text){
-        Intent intent = new Intent(getApplicationContext(), Listing.class);
+        Intent intent = new Intent(getApplicationContext(), Dpartures.class);
         PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), intent.FLAG_ACTIVITY_CLEAR_TOP, intent, 0);
 
         Notification myNotification  = new Notification.Builder(getApplicationContext())

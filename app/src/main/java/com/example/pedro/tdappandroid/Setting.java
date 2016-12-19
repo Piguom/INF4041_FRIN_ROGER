@@ -22,6 +22,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.drive.DrivePreferencesApi;
+
 import java.io.IOError;
 import java.util.Locale;
 
@@ -43,6 +45,16 @@ public class Setting extends PreferenceActivity {
         {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
+
+            Preference pref = (Preference) findPreference("submit");
+            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent i = new Intent(getActivity(),Listing.class);
+                    startActivity(i);
+                    return true;
+                }
+            });
         }
     }
 

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -33,6 +34,8 @@ import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 
+import static com.example.pedro.tdappandroid.Listing.STATIONS_UPDATE;
+
 public class MainActivity extends AppCompatActivity {
 
     static String filter;
@@ -59,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, Listing.class);
-                Toast.makeText(MainActivity.this, getString(R.string.dl), Toast.LENGTH_SHORT).show();
                 startActivity(i);
             }
         });
@@ -71,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             Log.i("MainActivity","GPS tracker ok !");
         }
-}
-
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
