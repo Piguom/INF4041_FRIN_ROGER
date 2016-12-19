@@ -1,6 +1,7 @@
 package com.example.pedro.tdappandroid;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
@@ -30,7 +32,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,9 +62,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         lat_tx = i.getStringExtra("lat");
         lng_tx = i.getStringExtra("lng");
         id_gare_tx = i.getStringExtra("id_gare");
-
-        if(lat_tx != null && lng_tx != null)
-            Toast.makeText(MapActivity.this, "Coordonnées : "+lat_tx+";"+lng_tx, Toast.LENGTH_LONG).show();
 
         Button change = (Button) findViewById(R.id.button2);
         if(lat_tx == null && lng_tx == null) {
@@ -123,20 +125,44 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         }
       }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     public void addMArker (GoogleMap map, String title, String desc, double lat, double lng){
         map.addMarker(new MarkerOptions()
                 .title(title)
                 .snippet(desc)
                 .position(new LatLng(lat, lng)));
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                try {
+                                    Intent i = new Intent(getApplicationContext(), MapActivity.class);
+                                    i.putExtra(name_tx, "name_gare");
+                                    i.putExtra(id_gare_tx, "id");
+                                    startActivity(i);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
+                builder.setMessage("Souhaitez-vous afficher les prochains départs de la gare ?")
+                        .setPositiveButton(R.string.oui, dialogClickListener)
+                        .setNegativeButton(R.string.no, dialogClickListener).show();
+            }
+        });
     }
+
+
+
+
+
+
 }

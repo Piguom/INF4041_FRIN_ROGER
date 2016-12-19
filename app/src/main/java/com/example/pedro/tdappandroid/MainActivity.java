@@ -21,6 +21,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,15 +59,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, Listing.class);
-                try {
-                    GetListServices.startActionStations(getApplicationContext());
-                    Toast.makeText(MainActivity.this, getString(R.string.dl), Toast.LENGTH_SHORT).show();
-                }catch(IOError e){
-                    e.printStackTrace();
-                }
+                Toast.makeText(MainActivity.this, getString(R.string.dl), Toast.LENGTH_SHORT).show();
                 startActivity(i);
             }
         });
+
+        GPSTracker gps = new GPSTracker(this);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+        else{
+            Log.i("MainActivity","GPS tracker ok !");
+        }
 }
 
 

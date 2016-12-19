@@ -15,4 +15,9 @@
         android:defaultValue="10"
         android:entries="@array/limit"
         android:entryValues="@array/limit_key" />
+
+    <Preference
+        android:key="sample_key"
+        android:title="Submit"></Preference>
+
 </PreferenceScreen>

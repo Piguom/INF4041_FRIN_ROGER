@@ -38,4 +38,5 @@
     <string name="gps_network_not_enabled">GPS not enabled</string>
     <string name="open_location_settings">Ouvrir paramètres GPS</string>
     <string name="Cancel">Cancle</string>
+    <string name="btnpref">Sumbit</string>
 </resources>

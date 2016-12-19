@@ -6,6 +6,7 @@ package com.example.pedro.tdappandroid;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.LauncherActivity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,6 +37,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Filter;
@@ -49,6 +51,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -66,6 +69,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.R.id.progress;
+
 public class Listing extends AppCompatActivity {
 
     RecyclerView rv = null;
@@ -74,10 +79,12 @@ public class Listing extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         IntentFilter intentFilter = new IntentFilter(STATIONS_UPDATE);
-        LocalBroadcastManager.getInstance(this).registerReceiver(new StaitonsUpdate(),intentFilter);
-       // GetListServices.startActionStations(getApplicationContext());
+        LocalBroadcastManager.getInstance(Listing.this).registerReceiver(new Listing.StationsUpdate(),intentFilter);
+        GetListServices.startActionStations(getApplicationContext());
 
         rv = (RecyclerView)findViewById(R.id.rv);
         rv.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
@@ -85,13 +92,33 @@ public class Listing extends AppCompatActivity {
     }
 
     public static final String STATIONS_UPDATE = "com.example.pedro.tdappandroid.action.STATIONS_UPDATE";
-    public class StaitonsUpdate extends BroadcastReceiver {
+    public class StationsUpdate extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.i("GetListServices", " "+getIntent().getAction());
             ((StationsAdapter) rv.getAdapter()).setStations(getStationsFromFile());
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(),Setting.class);
+            startActivity(i);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public JSONArray getStationsFromFile() {
@@ -116,22 +143,22 @@ public class Listing extends AppCompatActivity {
 
         @Override
         public StationsAdapter.StationHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_list_element,parent,false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_list_element, parent, false);
             return new StationHolder(v);
         }
 
         @Override
         public void onBindViewHolder(StationsAdapter.StationHolder holder, int position) {
             try {
-                    holder.name.setText((stations.getJSONObject(position).getString("name_gare")));
-                    holder.lat.setText((stations.getJSONObject(position).getString("lat")));
-                    holder.lng.setText((stations.getJSONObject(position).getString("lng")));
+                holder.name.setText((stations.getJSONObject(position).getString("name_gare")));
+                holder.lat.setText((stations.getJSONObject(position).getString("lat")));
+                holder.lng.setText((stations.getJSONObject(position).getString("lng")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
-        public JSONArray removeItem(int position){
+        public JSONArray removeItem(int position) {
             stations.remove(position);
             notifyItemRemoved(position);
             return stations;
@@ -142,33 +169,32 @@ public class Listing extends AppCompatActivity {
             return stations.length();
         }
 
-        public void setStations(JSONArray json){
+        public void setStations(JSONArray json) {
             stations = json;
             notifyDataSetChanged();
         }
 
-            public class StationHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public class StationHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             public TextView name = null;
             public TextView lng = null;
             public TextView lat = null;
             public ImageView image_name = null;
 
-            public StationHolder (View itemView) {
+            public StationHolder(View itemView) {
                 super(itemView);
 
                 if (itemView == null) {
                     // inflate your menu
-                    itemView.inflate(Listing.this,0,null);
-                    itemView.setTag(0,null);
-                }
-                else{
+                    itemView.inflate(Listing.this, 0, null);
+                    itemView.setTag(0, null);
+                } else {
                     itemView.setOnClickListener(this);
                     name = (TextView) itemView.findViewById(R.id.rv_bier_element_name);
                     lng = (TextView) itemView.findViewById(R.id.rv_bier_element_lat);
                     lat = (TextView) itemView.findViewById(R.id.rv_bier_element_lng);
                 }
-                if(lng.toString() == "0"){
+                if (lng.toString() == "0") {
                     removeItem(getLayoutPosition());
                 }
             }
@@ -179,17 +205,17 @@ public class Listing extends AppCompatActivity {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
-                                    try{
-                                        Intent i = new Intent(getApplicationContext(),MapActivity.class);
-                                        i.putExtra("name_gare",stations.getJSONObject(getPosition()).getString("name_gare"));
+                                    try {
+                                        Intent i = new Intent(getApplicationContext(), MapActivity.class);
+                                        i.putExtra("name_gare", stations.getJSONObject(getPosition()).getString("name_gare"));
                                         i.putExtra("lat", stations.getJSONObject(getPosition()).getString("lat"));
                                         i.putExtra("lng", stations.getJSONObject(getPosition()).getString("lng"));
                                         i.putExtra("id_gare", stations.getJSONObject(getPosition()).getString("id_gare"));
 
                                         startActivity(i);
-                                    }catch(JSONException e){
+                                    } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
 
@@ -203,8 +229,8 @@ public class Listing extends AppCompatActivity {
                     };
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(Listing.this);
-                    builder.setMessage("Voulez-vous afficher la position de cette gare sur la carte ?\nStation : "+stations.getJSONObject(getPosition()).getString("name_gare")+"\nLatitude : "+
-                            stations.getJSONObject(getPosition()).getString("lat")+"\nLongitude : "+stations.getJSONObject(getPosition()).getString("lng"))
+                    builder.setMessage("Voulez-vous afficher la position de cette gare sur la carte ?\nStation : " + stations.getJSONObject(getPosition()).getString("name_gare") + "\nLatitude : " +
+                            stations.getJSONObject(getPosition()).getString("lat") + "\nLongitude : " + stations.getJSONObject(getPosition()).getString("lng"))
                             .setPositiveButton(R.string.oui, dialogClickListener)
                             .setNegativeButton(R.string.no, dialogClickListener).show();
 
@@ -214,42 +240,4 @@ public class Listing extends AppCompatActivity {
             }
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_second, menu);
-
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if ( TextUtils.isEmpty ( newText ) ) {
-                    //new BiersAdapter().getFilter().filter("");
-                } else {
-                    Log.i("TAAAAG","Search"+newText);
-                    //new BiersAdapter().getFilter().filter(newText.toString());
-                }
-                return true;
-            }
-        });
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return super.onOptionsItemSelected(item);
-    }
-
 }

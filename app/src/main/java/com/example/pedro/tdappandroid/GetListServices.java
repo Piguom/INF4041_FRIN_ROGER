@@ -32,6 +32,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static com.example.pedro.tdappandroid.Listing.STATIONS_UPDATE;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
@@ -59,7 +61,7 @@ public class GetListServices extends IntentService {
         Intent intent = new Intent(context, GetListServices.class);
         intent.setAction(ACTION_GET_ALL_STATION);
         context.startService(intent);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Listing.STATIONS_UPDATE));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(STATIONS_UPDATE));
     }
 
     @Override
@@ -88,13 +90,15 @@ public class GetListServices extends IntentService {
 
 
         try{
-            if(gps.canGetLocation()){
+             if(gps.canGetLocation()){
                 latitude = gps.getLatitude();
                 longitude = gps.getLongitude();
-                url = new URL("http://www.raildar.fr/json/gares?lat="+latitude+"&lng="+longitude+"&dist="+pref.getString("dist","NULL")+"&limit=");
+                url = new URL("http://www.raildar.fr/json/gares?lat="+latitude+"&lng="+longitude+"&dist="+pref.getString("dist","NULL")+"&limit="+pref.getString("lim","NULL"));
+                Log.i("GetListServices","User location with preferences");
             }else{
                 //The default location will be on Paris and around 20km (approximativly)
-                url = new URL("http://www.raildar.fr/json/gares?lat=48.86&lng=2.34&dist="+pref.getString("dist","NULL")+"&limit=");
+                url = new URL("http://www.raildar.fr/json/gares?lat=48.8676093&lng=2.3821879&zoom=12&dist=100&limit=100");
+                Log.i("GetListServices","No loation, Paris to default");
             }
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -136,17 +140,12 @@ public class GetListServices extends IntentService {
 
         // Do nothing when click on the notification (no redirection)
         Intent resultIntent = new Intent();
-
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
-
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-
         mBuilder.setContentIntent(resultPendingIntent);
-
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         mNotificationManager.notify(0, mBuilder.build());
     }
 }
